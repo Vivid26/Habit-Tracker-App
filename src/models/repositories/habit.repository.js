@@ -14,7 +14,7 @@ export const newHabit = async (id,title,desc) => {
         title: title,
         description: desc,
         tracker: [{
-            date: new Date(),
+            dateYear: new Date().getFullYear(),
             displayDate: new Date().toDateString().split(" ").slice(1, 3).join(" "),
             status: "No Action"
         }]
@@ -48,9 +48,9 @@ export const changeStatus = async (habitId,date) => {
         }
     });
 
-    if (!found) {
+    if (!found) { 
         tracker.push({
-            date: new Date(date),
+            dateYear: new Date().getFullYear(),
             displayDate: new Date(date).toDateString().split(" ").slice(1, 3).join(" "),
             status: "Done"
         });

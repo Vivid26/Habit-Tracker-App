@@ -23,8 +23,10 @@ $ npm start
 ```
 Open the application in your web browser by visiting the following URL:
 ```
-$ http://localhost:8000/api/home/
+$ http://localhost:8000
 ```
+
+### [Live Habit Tracker App](https://habit-tracker-app-qhb8.onrender.com)
 
 ## Usage
 Once you have the application up and running, you can start using it by following these steps:

@@ -9,11 +9,11 @@ export const createHabit = async (req, res) => {
         const habit = await findHabit(title,userId);
         if (habit) {
             console.log('Habit exists');
-            return res.redirect('/api/home/');
+            return res.redirect('/');
         } else {
             const habit = await newHabit(userId,title,desc);
             req.flash('success', 'Habit Created Successfully');
-            return res.redirect('/api/home/');
+            return res.redirect('/');
         }
     } catch (error) {
         console.log('Error in habitController/createHabit: ', error);
@@ -31,10 +31,10 @@ export const toggleStatus = async (req, res) => {
 
         if (!habit) {
             console.log('Habit not present!');
-            return res.redirect('/api/home/');
+            return res.redirect('/');
         } else {
             await changeStatus(id,date);
-            return res.redirect('/api/home/');
+            return res.redirect('/');
         }
     } catch (error) {
         console.log('Error in habitController/toggleStatus', error);
@@ -52,7 +52,7 @@ export const deleteHabit = async (req, res) => {
         const userId = req.user._id;
         const deletedHabit = await deleteUserHabit(habitId,userId);
         req.flash('success', 'Habit Deleted Successfully');
-        return res.redirect('/api/home/');
+        return res.redirect('/');
     } catch (error) {
         console.log('Error in habitController/deleteHabit', error);
         return res.render('404', {
@@ -71,7 +71,7 @@ export const editHabit = async (req, res) => {
 
         const updatedResult = await editUserHabit(habitId,userId,title,desc);
         req.flash('success', 'Habit Updated Successfully');
-        return res.redirect('/api/home/');
+        return res.redirect('/');
 
     } catch (error) {
         console.log('Error in habitController/editHabit', error);

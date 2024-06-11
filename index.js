@@ -67,7 +67,7 @@ app.use(setFlash);
 
 // use express router
 
-app.use('/api/home',homeRouter);
+app.use('/',homeRouter);
 app.use('/api/user',userRouter);
 app.use('/api/habits',habitRouter);
 

@@ -54,18 +54,20 @@ export const create = async (req, res) => {
 // signs in existing user
 export const createSession = async (req, res) =>{
     req.flash('success', 'You are logged in!');
-    return res.redirect('/api/home/');
+    return res.redirect('/');
 }
 
 // signs out the user
 export const destroySession = async (req, res,done) =>{
-    req.logout((err) => {
+    await req.logOut((err) => {
         if (err) {
             return done(err);
         }
+        res.clearCookie("Habit-Tracker");
+        res.redirect('/');
     });
-    req.flash('success' , 'You are logged out!');
-    return res.redirect('/api/user/sign-in');
+    req.flash('success' , 'You are logged out!');   
+    return;
 }
 
 // redirects the user to foget password page

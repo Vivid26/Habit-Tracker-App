@@ -2,11 +2,11 @@ import express from 'express';
 import passport from 'passport';
 
 import { signIn, signUp, create,createSession, destroySession, forgetPassword, resetPassword } from '../controllers/user.controller.js';
-import { checkAuthenticated, checkNotAuthenticated } from '../../middlewares/passport_local.js';
+import { checkAuthenticated, ensureAuthentication } from '../../middlewares/passport_local.js';
 const userRouter = express.Router();
 
-userRouter.route('/sign-up').get(checkNotAuthenticated,signUp);
-userRouter.route('/sign-in').get(checkNotAuthenticated,signIn);
+userRouter.route('/sign-up').get(ensureAuthentication,signUp);
+userRouter.route('/sign-in').get(ensureAuthentication,signIn);
 
 userRouter.route('/create').post(create);
 

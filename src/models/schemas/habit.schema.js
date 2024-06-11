@@ -15,8 +15,8 @@ const habitSchema = new mongoose.Schema({
     },
     tracker:[
         {
-            date: {
-                type: Date,
+            dateYear: {
+                type: Number,
                 required: true
             },
             displayDate: {
