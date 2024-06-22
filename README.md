@@ -26,6 +26,8 @@ Open the application in your web browser by visiting the following URL:
 $ http://localhost:8000
 ```
 
+- Note: Please ensure you must add appropriate values of GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, SMPT_MAIL, SMPT_MAIL_PASSWORD environment variables present in .env file.
+
 ### [Live Habit Tracker App](https://habit-tracker-app-qhb8.onrender.com)
 
 ## Usage

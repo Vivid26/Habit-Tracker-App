@@ -1,6 +1,6 @@
 import express from 'express';
 import { createHabit, toggleStatus,deleteHabit,editHabit } from '../controllers/habit.controller.js';
-import { checkAuthenticated } from '../../middlewares/passport_local.js';
+import { checkAuthenticated } from '../../middlewares/passportUtilities.js';
 
 const habitRouter = express.Router();
 

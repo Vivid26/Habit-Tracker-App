@@ -14,8 +14,15 @@ export const createNewUser = async (userData,hashedPassword) =>{
     return savedUser;
 }
 
-export const updateUserPassword = async (id,newPassword) => {
-    const filter ={_id:id};
-    const update = {password : newPassword};
-    return await UserModel.findOneAndUpdate(filter,update,{new:true});
-}
+export const findUserWithToken = async (hashtoken) => {
+    return await UserModel.findOne({
+      resetPasswordToken: hashtoken,
+    });
+  };
+
+  export const findUserWithValidToken = async (hashtoken) => {
+    return await UserModel.findOne({
+      resetPasswordToken: hashtoken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+  };

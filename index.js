@@ -6,10 +6,11 @@ import expressLayouts from 'express-ejs-layouts';
 import session from "express-session";
 import cookieParser from "cookie-parser";
 
-// used for session cookies
 import passport from "passport";
-import "./middlewares/passport_local.js"
-import { setAuthenticatedUser } from "./middlewares/passport_local.js";
+import "./middlewares/passportGoogleStrategy.js"
+import "./middlewares/passportLocalStrategy.js"
+import { setAuthenticatedUser } from "./middlewares/passportUtilities.js";
+
 
 import flash from "connect-flash"
 import { setFlash } from "./middlewares/flashMiddleware.js";
@@ -60,6 +61,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(setAuthenticatedUser);
+
 
 // flash middleware
 app.use(flash());

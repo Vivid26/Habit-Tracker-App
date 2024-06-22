@@ -1,34 +1,6 @@
-
 import passport from "passport";
-import passportLocal from "passport-local";
-import bcrypt from "bcrypt";
-
+import GoogleUserModel from "../src/models/schemas/googleUser.schema.js";
 import { findUser, findUserById } from "../src/models/repositories/user.repository.js";
-// storing strategy used for authentication
-const LocalStrategy = passportLocal.Strategy;
-
-// authentication using passport
-export default passport.use(new LocalStrategy({
-    usernameField: 'email'
-},
-    async function (email, password, done) {
-        // find a user and establish the identity
-        let user = await findUser(email);
-        if (!user) {
-            return done(null, false, { message: 'No user with this email' })
-        }
-
-        try {
-            if (await bcrypt.compare(password, user.password)) {
-                return done(null, user)
-            } else {
-                return done(null, false, { message: 'Password incorrect' })
-            }
-        } catch (e) {
-            return done(e)
-        }
-    }
-));
 
 // serializing the user to decide which key is to be kept in the cookies
 passport.serializeUser(function (user, done) {
@@ -37,12 +9,17 @@ passport.serializeUser(function (user, done) {
 
 // deserializing the user from the key in the cookies
 passport.deserializeUser(async function (id, done) {
-    let user = await findUserById(id);
-    if (!user) {
-        console.log("Error in passport_local/deserializeUser");
+
+    let googleUser = await GoogleUserModel.findById(id);
+    let localUser = await findUserById(id);
+    if (googleUser && !localUser) {
+        return done(null, googleUser);
+    } else if (localUser && !googleUser) {
+        return done(null, localUser);
+    } else {
+        console.log("Error in deserializeUser");
         return;
     }
-    return done(null, user);
 });
 
 // Checking authentication
