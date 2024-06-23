@@ -1,12 +1,15 @@
 <link rel="stylesheet" href="/css/userSignUp.css">
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
 <div class="signup">
     <h1>Create a new account</h1>
-    <form action="/api/user/create" method="POST">
+    <form action="/api/user/create" method="POST" class="form">
         <input type="text" name="name" placeholder="Name" required>
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
         <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <div class="g-recaptcha" data-sitekey="6LeW3f4pAAAAAPgN9v2RwxwqfDjf5xFC0L_48ygd" style="margin: auto;"></div>
         <button>Sign Up</button>
     </form>
 

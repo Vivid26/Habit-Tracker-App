@@ -7,6 +7,9 @@
     <% if (locals.user){ %>
         <div class="userPresent">
             <div class="nameOfUser"><%= user.name%>  </div>
+            <% if (!locals.user.googleId){ %>
+            <div style="align-content: center;"><a href="/api/user/reset-password/1" style="text-decoration: none;">Change Password &nbsp;</a></div>
+            <%}%> 
             <hr>
             <div class="logOut"> <a href="/api/user/sign-out" > <i class="fa-solid fa-arrow-right-from-bracket" style="color: #e9f2ff;"></i> </a> </div>
         </div>

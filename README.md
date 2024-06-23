@@ -25,6 +25,9 @@ GOOGLE_CLIENT_SECRET=<Your google OAuth client application's client secret key>
 
 SMPT_MAIL=<Registered mail id to send mails from your app using mail sending API's service>
 SMPT_MAIL_PASSWORD=<Password associated with above mail id>
+
+CAPTCHA_SITE_KEY=<Your applications Google reCAPTCHA site key>
+CAPTCHA_SECRET_KEY=<Your applications Google reCAPTCHA secret key>
 ```
 Start the application using the following command:
 ```

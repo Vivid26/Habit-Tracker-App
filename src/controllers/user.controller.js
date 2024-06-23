@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { findUser, createNewUser, findUserWithToken, findUserWithValidToken } from "../models/repositories/user.repository.js";
+import { findUser, createNewUser, findUserWithToken, findUserWithValidToken, updateUserPassword } from "../models/repositories/user.repository.js";
 import { sendPasswordResetEmail } from "../../utils/emails/passwordReset.js"
 import crypto from "crypto";
 
@@ -113,12 +113,13 @@ export const forgetPassword = async (req, res) => {
 // redirects the user to reset password page - visiting link to reset password page from mail
 export const renderResetPassword = async (req, res) => {
     const { token } = req.params;
-    const resetLink = `${process.env.BASE_URL}/api/user/reset-password/${token}`
+    const resetLink = `${process.env.BASE_URL}/api/user/reset-password/${token}`;
+    const link = `${process.env.BASE_URL}/api/user/update-password`;
 
     try {
         return res.render('reset_password', {
             title: "Reset Password",
-            link: resetLink
+            link: (token && token != 1) ? resetLink : link 
         });
     } catch (error) {
         console.log('Error in usersController/forgetPassword: ', error);
@@ -167,4 +168,19 @@ export const resetPassword = async (req, res) => {
     }
 }
 
+
+export const resetPasswordAfterLogin = async (req,res)=>{
+    try {
+        if(req.user._id && req.body.password==req.body.confirmPassword) {
+            const hashedPassword = await bcrypt.hash(req.body.password, 12);
+            const updatedUser = await updateUserPassword(req.user._id,hashedPassword);
+            req.flash('success', 'Password changed successfully');
+            return res.redirect('/');
+        }
+        req.flash("error","Password mismatch. Please check once.");
+    } catch (error) {
+        console.log('Error in habitController/resetPassword: ', error);
+        return res.redirect('back');
+    }
+}
 
